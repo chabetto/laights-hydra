@@ -20,7 +20,7 @@ function createOscillator(freq, scrollX, size, output, modulate, feedback = fals
     oscil.out(output)
 }
 
-createOscillator(20,2,0.2,o1,[false,o0])
+createOscillator([30,20,10,1,10].smooth(),2,0.2,o1,[false,o0])
 createOscillator(20,1,0,o0,[true,o1,o2],1,1)
 createOscillator(5,2,0,o2,[true,o0],1,1)
 render(o0)
