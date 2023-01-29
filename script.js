@@ -4,15 +4,15 @@ var hydra = new Hydra({
     enableStreamCapture: false,
 })
 
-function createOscillator(freq, scrollX, size, output, modulate, feedback = false, kaleid = false) {
+function createOscillator(freq, scrollX, size, output, modulators, feedback = false, kaleid = false) {
     let oscil = osc(freq,scrollX)
     if (size != 0) { // size = 0 is sine, else square
         oscil.thresh(size)
     } if (kaleid) {
         oscil.kaleid(99)
-    } if (modulate[0]) {
-        for (let i = 1; i < modulate.length; i++){
-            oscil.modulate(modulate[1])
+    } if (modulators.length != 0) {
+        for (let i = 1; i < modulators.length; i++){
+            oscil.modulate(modulators[i])
         }
     } if (feedback) {
         oscil.modulate(output)
@@ -20,7 +20,56 @@ function createOscillator(freq, scrollX, size, output, modulate, feedback = fals
     oscil.out(output)
 }
 
-createOscillator([30,20,10,1,10].smooth(),2,0.2,o1,[false,o0])
-createOscillator(20,1,0,o0,[true,o1,o2],1,1)
-createOscillator(5,2,0,o2,[true,o0],1,1)
-render(o0)
+function updateModulators() {
+    let modArray1 = [];
+    if (document.getElementById("os1mod1").checked) {
+        modArray1.push(o0)
+    } if (document.getElementById("os1mod2").checked) {
+        modArray1.push(o1)
+    } if (document.getElementById("os1mod3").checked) {
+        modArray1.push(o2)
+    }
+    createOscillator(20,1,0,o0,modArray1,1,1)
+    modArray2 = []
+    if (document.getElementById("os2mod1").checked) {
+        modArray2.push(o0)
+    } if (document.getElementById("os2mod2").checked) {
+        modArray2.push(o1)
+    } if (document.getElementById("os2mod3").checked) {
+        modArray2.push(o2)
+    }
+    createOscillator([30,20,10,1,10,20,30].smooth(),2,0.2,o1,modArray2)
+    modArray3 = []
+    if (document.getElementById("os3mod1").checked) {
+        modArray3.push(o0)
+    } if (document.getElementById("os3mod2").checked) {
+        modArray3.push(o1)
+    } if (document.getElementById("os3mod3").checked) {
+        modArray3.push(o2)
+    }
+    createOscillator(40,2,0,o2,modArray3,1,1)
+    return [modArray1,modArray2,modArray3]
+}
+
+function updateFrequency() {
+    let freq1 = document.getElementById("os1freq").valueAsNumber
+    let freq2 = document.getElementById("os2freq").valueAsNumber
+    let freq3 = document.getElementById("os3freq").valueAsNumber
+    console.log(freq1)
+    return [freq1,freq2,freq3]
+}
+
+function updateAllOsc() {
+    let modArrays = updateModulators()
+    let freqArray = updateFrequency()
+    let outputs = [o0,o1,o2]
+    for (let i = 0;i < 3;i++) {
+        createOscillator(freqArray[i],1,0,outputs[i],modArrays[i],true,true)
+    }
+}
+
+
+createOscillator([30,20,10,1,10,20,30].smooth(),2,0.2,o1,[])
+createOscillator(20,1,0,o0,[],1,1)
+createOscillator(40,2,0,o2,[],1,1)
+//render(o0)
