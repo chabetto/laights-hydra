@@ -4,7 +4,7 @@ var hydra = new Hydra({
     enableStreamCapture: false,
 })
 
-function createOscillator(freq, scrollX, size, output, modulators, feedback = false, kaleid = false) {
+function createOscillator(freq, scrollX, size, output, modulators, kaleid) {
     let oscil = osc(freq,scrollX)
     if (size != 0) { // size = 0 is sine, else square
         oscil.thresh(size)
@@ -14,8 +14,6 @@ function createOscillator(freq, scrollX, size, output, modulators, feedback = fa
         for (let i = 1; i < modulators.length; i++){
             oscil.modulate(modulators[i])
         }
-    } if (feedback) {
-        oscil.modulate(output)
     }
     oscil.out(output)
 }
@@ -29,7 +27,7 @@ function updateModulators() {
     } if (document.getElementById("os1mod3").checked) {
         modArray1.push(o2)
     }
-    modArray2 = []
+    let modArray2 = []
     if (document.getElementById("os2mod1").checked) {
         modArray2.push(o0)
     } if (document.getElementById("os2mod2").checked) {
@@ -37,7 +35,7 @@ function updateModulators() {
     } if (document.getElementById("os2mod3").checked) {
         modArray2.push(o2)
     }
-    modArray3 = []
+    let modArray3 = []
     if (document.getElementById("os3mod1").checked) {
         modArray3.push(o0)
     } if (document.getElementById("os3mod2").checked) {
@@ -62,18 +60,35 @@ function updateScrollSpeed() {
     return [scro1,scro2,scro3]
 }
 
+function updateSize() {
+    let size1 = document.getElementById("os1size").valueAsNumber
+    let size2 = document.getElementById("os2size").valueAsNumber
+    let size3 = document.getElementById("os3size").valueAsNumber
+    return [size1,size2,size3]
+}
+
+function updateKaleid() {
+    let kal1 = document.getElementById("os1kaleid").checked
+    let kal2 = document.getElementById("os2kaleid").checked
+    let kal3 = document.getElementById("os3kaleid").checked
+    return [kal1,kal2,kal3]
+}
+
 function updateAllOsc() {
     let modArrays = updateModulators()
     let freqArray = updateFrequency()
     let scroArray = updateScrollSpeed()
+    let kaleidArray = updateKaleid()
+    let sizeArray = updateSize()
     let outputs = [o0,o1,o2]
     for (let i = 0;i < 3;i++) {
-        createOscillator(freqArray[i],scroArray[i],0,outputs[i],modArrays[i],true,true)
+        createOscillator(freqArray[i],scroArray[i],sizeArray[i],outputs[i],modArrays[i],kaleidArray[i])
+        console.log(freqArray[i],scroArray[i],sizeArray[i],outputs[i],modArrays[i],kaleidArray[i])
     }
 }
 
 
-createOscillator([30,20,10,1,10,20,30].smooth(),2,0.2,o1,[])
-createOscillator(20,1,0,o0,[o1],1,1)
-createOscillator(40,2,0,o2,[],1,1)
+createOscillator([30,20,10,1,10,20,30].smooth(),2,0.2,o1,[],false)
+createOscillator(20,1,0,o0,[o1],false)
+createOscillator(40,2,0,o2,[],false)
 //render(o0)
