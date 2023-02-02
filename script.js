@@ -11,84 +11,58 @@ function createOscillator(freq, scrollX, size, output, modulators, kaleid) {
     } if (kaleid) {
         oscil.kaleid(99)
     } if (modulators.length != 0) {
-        for (let i = 1; i < modulators.length; i++){
+        for (let i = 0; i < modulators.length; i++){
             oscil.modulate(modulators[i])
         }
     }
     oscil.out(output)
 }
 
-function updateModulators() {
-    let modArray1 = [];
-    if (document.getElementById("os1mod1").checked) {
-        modArray1.push(o0)
-    } if (document.getElementById("os1mod2").checked) {
-        modArray1.push(o1)
-    } if (document.getElementById("os1mod3").checked) {
-        modArray1.push(o2)
+function updateOsc(no) {
+    // modulators
+    let modArray = [];
+    if (document.getElementById("os" + no + "mod1").checked) {
+        modArray.push(o0)
+    } if (document.getElementById("os" + no + "mod2").checked) {
+        modArray.push(o1)
+    } if (document.getElementById("os" + no + "mod3").checked) {
+        modArray.push(o2)
     }
-    let modArray2 = []
-    if (document.getElementById("os2mod1").checked) {
-        modArray2.push(o0)
-    } if (document.getElementById("os2mod2").checked) {
-        modArray2.push(o1)
-    } if (document.getElementById("os2mod3").checked) {
-        modArray2.push(o2)
-    }
-    let modArray3 = []
-    if (document.getElementById("os3mod1").checked) {
-        modArray3.push(o0)
-    } if (document.getElementById("os3mod2").checked) {
-        modArray3.push(o1)
-    } if (document.getElementById("os3mod3").checked) {
-        modArray3.push(o2)
-    }
-    return [modArray1,modArray2,modArray3]
+    // output
+    let output = [o0,o1,o2][no - 1]
+    // freq
+    let freq = document.getElementById("os" + no + "freq").valueAsNumber / 10
+    // scroll
+    let scro = document.getElementById("os" + no + "scro").valueAsNumber / 10
+    // size
+    let size = document.getElementById("os" + no + "size").valueAsNumber / 100
+    // kaleidoscope
+    let kal = document.getElementById("os" + no + "kaleid").checked
+    createOscillator(freq,scro,size,output,modArray,kal)
 }
 
-function updateFrequency() {
-    let freq1 = document.getElementById("os1freq").valueAsNumber
-    let freq2 = document.getElementById("os2freq").valueAsNumber
-    let freq3 = document.getElementById("os3freq").valueAsNumber
-    return [freq1,freq2,freq3]
+function setUpOsc(no) {
+    let kal = document.getElementById("os" + no + "kaleid")
+    let mod1 = document.getElementById("os" + no + "mod1")
+    let mod2 = document.getElementById("os" + no + "mod2")
+    let mod3 = document.getElementById("os" + no + "mod3")
+    let size = document.getElementById("os" + no + "size")
+    let scro = document.getElementById("os" + no + "scro")
+    let freq = document.getElementById("os" + no + "freq")
+    kal.onclick = () => updateOsc(no)
+    mod1.onclick = () => updateOsc(no)
+    mod2.onclick = () => updateOsc(no)
+    mod3.onclick = () => updateOsc(no)
+    size.oninput = () => updateOsc(no)
+    scro.oninput = () => updateOsc(no)
+    freq.oninput = () => updateOsc(no)
 }
 
-function updateScrollSpeed() {
-    let scro1 = document.getElementById("os1scro").valueAsNumber
-    let scro2 = document.getElementById("os2scro").valueAsNumber
-    let scro3 = document.getElementById("os3scro").valueAsNumber
-    return [scro1,scro2,scro3]
-}
-
-function updateSize() {
-    let size1 = document.getElementById("os1size").valueAsNumber
-    let size2 = document.getElementById("os2size").valueAsNumber
-    let size3 = document.getElementById("os3size").valueAsNumber
-    return [size1,size2,size3]
-}
-
-function updateKaleid() {
-    let kal1 = document.getElementById("os1kaleid").checked
-    let kal2 = document.getElementById("os2kaleid").checked
-    let kal3 = document.getElementById("os3kaleid").checked
-    return [kal1,kal2,kal3]
-}
-
-function updateAllOsc() {
-    let modArrays = updateModulators()
-    let freqArray = updateFrequency()
-    let scroArray = updateScrollSpeed()
-    let kaleidArray = updateKaleid()
-    let sizeArray = updateSize()
-    let outputs = [o0,o1,o2]
-    for (let i = 0;i < 3;i++) {
-        createOscillator(freqArray[i],scroArray[i],sizeArray[i],outputs[i],modArrays[i],kaleidArray[i])
-        console.log(freqArray[i],scroArray[i],sizeArray[i],outputs[i],modArrays[i],kaleidArray[i])
+function start() {
+    for (let i = 1; i < 4; i++) {
+        setUpOsc(i)
+        updateOsc(i)
     }
 }
 
-
-createOscillator([30,20,10,1,10,20,30].smooth(),2,0.2,o1,[],false)
-createOscillator(20,1,0,o0,[o1],false)
-createOscillator(40,2,0,o2,[],false)
-//render(o0)
+start()
