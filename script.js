@@ -12,7 +12,7 @@ function createOscillator(freq, scrollX, size, output, modulators, kaleid) {
         oscil.kaleid(99)
     } if (modulators.length != 0) {
         for (let i = 0; i < modulators.length; i++){
-            oscil.modulate(modulators[i])
+            kaleid ? oscil.modulate(modulators[i]) : oscil.modulateRotate(modulators[i])
         }
     }
     oscil.out(output)
@@ -63,6 +63,13 @@ function start() {
         setUpOsc(i)
         updateOsc(i)
     }
+    document.getElementById("upload").addEventListener("change", playAudio, false);
+}
+
+function playAudio() {
+    let uploadedFile = document.getElementById("upload").files[0];
+    $("#src").attr("src", URL.createObjectURL(uploadedFile));
+    document.getElementById("audio").load();
 }
 
 start()

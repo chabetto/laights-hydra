@@ -15,78 +15,85 @@
         <p>Modulate by:</p>
         <div class="contain">
           <label for="os1mod1">Osc 1:</label><br>
-          <input type="checkbox" id="os1mod1" name="os1mod1" value="os1mod1">
+          <input type="checkbox" id="os1mod1" name="os1mod1">
         </div>
         <div class="contain">
           <label for="os1mod2">Osc 2:</label><br>
-          <input type="checkbox" id="os1mod2" name="os1mod2" value="os1mod2">
+          <input type="checkbox" id="os1mod2" name="os1mod2">
         </div>
         <div class="contain">
           <label for="os1mod3">Osc 3:</label><br>
-          <input type="checkbox" id="os1mod3" name="os1mod3" value="os1mod3">
+          <input type="checkbox" id="os1mod3" name="os1mod3">
         </div>
         <div class="contain">
           <label for="os1kaleid">Kaleidoscope:</label><br>
-          <input type="checkbox" id="os1kaleid" name="os1kaleid" value="os1mod3">
+          <input type="checkbox" id="os1kaleid" name="os1kaleid">
         </div>
         <p>Frequency:</p>
-        <input type="range" id="os1freq" class='slider' min="10" max="100" value="10">
+        <input type="range" id="os1freq" class='slider' min="10" max="100" value="50">
         <p>Scroll Speed:</p>
         <input type="range" id="os1scro" class='slider' min="0" max="50" value="10">
         <p>Size:</p>
-        <input type="range" id="os1size" class='slider' min="0" max="100" value="10">
+        <input type="range" id="os1size" class='slider' min="0" max="100" value="0">
     </div>
     <div class="cont"><p>Oscillator 2:</p><button onclick="render(o1)">Output</button>
       <p>Modulate by:</p>
       <div class="contain">
         <label for="os2mod1">Osc 1:</label><br>
-        <input type="checkbox" id="os2mod1" name="os2mod1" value="os2mod1">
+        <input type="checkbox" id="os2mod1" name="os2mod1">
       </div>
       <div class="contain">
         <label for="os2mod2">Osc 2:</label><br>
-        <input type="checkbox" id="os2mod2" name="os2mod2" value="os2mod2">
+        <input type="checkbox" id="os2mod2" name="os2mod2">
       </div>
       <div class="contain">
         <label for="os2mod3">Osc 3:</label><br>
-        <input type="checkbox" id="os2mod3" name="os2mod3" value="os2mod3">
+        <input type="checkbox" id="os2mod3" name="os2mod3">
       </div>
       <div class="contain">
         <label for="os2kaleid">Kaleidoscope:</label><br>
-        <input type="checkbox" id="os2kaleid" name="os2kaleid" value="os2mod3">
+        <input type="checkbox" id="os2kaleid" name="os2kaleid">
       </div>
         <p>Frequency:</p>
-        <input type="range" id="os2freq" class='slider' min="10" max="100" value="10">
+        <input type="range" id="os2freq" class='slider' min="10" max="100" value="50">
         <p>Scroll Speed:</p>
         <input type="range" id="os2scro" class='slider' min="0" max="50" value="10">
         <p>Size:</p>
-        <input type="range" id="os2size" class='slider' min="0" max="100" value="10">
+        <input type="range" id="os2size" class='slider' min="0" max="100" value="0">
     </div>
     <div class="cont"><p>Oscillator 3:</p><button onclick="render(o2)">Output</button>
       <p>Modulate by:</p>
       <div class="contain">
         <label for="os3mod1">Osc 1:</label><br>
-        <input type="checkbox" id="os3mod1" name="os3mod1" value="os3mod1">
+        <input type="checkbox" id="os3mod1" name="os3mod1">
       </div>
       <div class="contain">
         <label for="os3mod2">Osc 2:</label><br>
-        <input type="checkbox" id="os3mod2" name="os3mod2" value="os3mod2">
+        <input type="checkbox" id="os3mod2" name="os3mod2">
       </div>
       <div class="contain">
         <label for="os3mod3">Osc 3:</label><br>
-        <input type="checkbox" id="os3mod3" name="os3mod3" value="os3mod3">
+        <input type="checkbox" id="os3mod3" name="os3mod3">
       </div>
       <div class="contain">
         <label for="os3kaleid">Kaleidoscope:</label><br>
-        <input type="checkbox" id="os3kaleid" name="os3kaleid" value="os3mod3">
+        <input type="checkbox" id="os3kaleid" name="os3kaleid">
       </div>
         <p>Frequency:</p>
-        <input type="range" id="os3freq" class='slider' min="10" max="100" value="10">
+        <input type="range" id="os3freq" class='slider' min="10" max="100" value="50">
         <p>Scroll Speed:</p>
         <input type="range" id="os3scro" class='slider' min="0" max="50" value="10">
         <p>Size:</p>
-        <input type="range" id="os3size" class='slider' min="0" max="100" value="10">
+        <input type="range" id="os3size" class='slider' min="0" max="100" value="0">
+      </div>
+      <div class="cont">
+        <input type="file" id="upload" />
+        <audio id="audio" controls>
+          <source src="" id="src" />
+        </audio>
       </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src='./hydra-synth.js'></script>
     <script src="./script.js"></script>
   </body>
