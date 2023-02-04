@@ -31,11 +31,11 @@ function updateOsc(no) {
     // output
     let output = [o0,o1,o2][no - 1]
     // freq
-    let freq = document.getElementById("os" + no + "freq").valueAsNumber / 10
+    let freq = document.getElementById("os" + no + "freq").valueAsNumber
     // scroll
-    let scro = document.getElementById("os" + no + "scro").valueAsNumber / 10
+    let scro = document.getElementById("os" + no + "scro").valueAsNumber
     // size
-    let size = document.getElementById("os" + no + "size").valueAsNumber / 100
+    let size = document.getElementById("os" + no + "size").valueAsNumber
     // kaleidoscope
     let kal = document.getElementById("os" + no + "kaleid").checked
     createOscillator(freq,scro,size,output,modArray,kal)
@@ -53,9 +53,9 @@ function setUpOsc(no) {
     mod1.onclick = () => updateOsc(no)
     mod2.onclick = () => updateOsc(no)
     mod3.onclick = () => updateOsc(no)
-    size.oninput = () => updateOsc(no)
-    scro.oninput = () => updateOsc(no)
-    freq.oninput = () => updateOsc(no)
+    size.onchange = () => updateOsc(no)
+    scro.onchange = () => updateOsc(no)
+    freq.onchange = () => updateOsc(no)
 }
 
 function start() {
@@ -66,10 +66,37 @@ function start() {
     document.getElementById("upload").addEventListener("change", playAudio, false);
 }
 
-function playAudio() {
-    let uploadedFile = document.getElementById("upload").files[0];
+function playAudio(stopTime = false) {
+    const uploadedFile = document.getElementById("upload").files[0];
     $("#src").attr("src", URL.createObjectURL(uploadedFile));
     document.getElementById("audio").load();
+    const audioContext = new AudioContext();
+    const htmlAudioElement = document.getElementById("audio");
+    const source = audioContext.createMediaElementSource(htmlAudioElement);
+    source.connect(audioContext.destination);
+
+    const freqOsc3 = document.getElementById("os3scro")
+
+    if (typeof Meyda === "undefined") {
+    console.log("Meyda could not be found! Have you included it?");
+    }
+    else {
+    const analyzer = Meyda.createMeydaAnalyzer({
+        "audioContext": audioContext,
+        "source": source,
+        "bufferSize": 4096*2,
+        "featureExtractors": ["rms"],
+        "callback": features => {
+        console.log(features);
+        freqOsc3.value = features.rms * 30;
+        }
+    });
+    analyzer.start();
+    }
+
+    let gameTime = window.setInterval(() => {
+        updateOsc(3)
+    },  100);
 }
 
 start()

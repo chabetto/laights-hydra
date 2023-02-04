@@ -30,11 +30,11 @@
           <input type="checkbox" id="os1kaleid" name="os1kaleid">
         </div>
         <p>Frequency:</p>
-        <input type="range" id="os1freq" class='slider' min="10" max="100" value="50">
+        <input type="range" id="os1freq" class='slider' min="1" max="10" value="5" step="0.01">
         <p>Scroll Speed:</p>
-        <input type="range" id="os1scro" class='slider' min="0" max="50" value="10">
+        <input type="range" id="os1scro" class='slider' min="0" max="5" value="1" step="0.01">
         <p>Size:</p>
-        <input type="range" id="os1size" class='slider' min="0" max="100" value="0">
+        <input type="range" id="os1size" class='slider' min="0" max="1" value="0" step="0.001">
     </div>
     <div class="cont"><p>Oscillator 2:</p><button onclick="render(o1)">Output</button>
       <p>Modulate by:</p>
@@ -55,11 +55,11 @@
         <input type="checkbox" id="os2kaleid" name="os2kaleid">
       </div>
         <p>Frequency:</p>
-        <input type="range" id="os2freq" class='slider' min="10" max="100" value="50">
+        <input type="range" id="os2freq" class='slider' min="1" max="10" value="5" step="0.01">
         <p>Scroll Speed:</p>
-        <input type="range" id="os2scro" class='slider' min="0" max="50" value="10">
+        <input type="range" id="os2scro" class='slider' min="0" max="5" value="1" step="0.01">
         <p>Size:</p>
-        <input type="range" id="os2size" class='slider' min="0" max="100" value="0">
+        <input type="range" id="os2size" class='slider' min="0" max="1" value="0" step="0.001">
     </div>
     <div class="cont"><p>Oscillator 3:</p><button onclick="render(o2)">Output</button>
       <p>Modulate by:</p>
@@ -80,11 +80,11 @@
         <input type="checkbox" id="os3kaleid" name="os3kaleid">
       </div>
         <p>Frequency:</p>
-        <input type="range" id="os3freq" class='slider' min="10" max="100" value="50">
+        <input type="range" id="os3freq" class='slider' min="1" max="10" value="5" step="0.01">
         <p>Scroll Speed:</p>
-        <input type="range" id="os3scro" class='slider' min="0" max="50" value="10">
+        <input type="range" id="os3scro" class='slider' min="0" max="5" value="1" step="0.01">
         <p>Size:</p>
-        <input type="range" id="os3size" class='slider' min="0" max="100" value="0">
+        <input type="range" id="os3size" class='slider' min="0" max="1" value="0" step="0.001">
       </div>
       <div class="cont">
         <input type="file" id="upload" />
@@ -93,6 +93,7 @@
         </audio>
       </div>
     </div>
+    <script src="https://unpkg.com/meyda/dist/web/meyda.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src='./hydra-synth.js'></script>
     <script src="./script.js"></script>
